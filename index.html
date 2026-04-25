@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akasaka — Trip To Japan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --red: #E8271A;
+  --navy: #0D1B2A;
+  --text: #1a1a1a;
+  --muted: #666;
+  --light-muted: #999;
+  --border: #e5e5e5;
+  --bg: #f9f9f9;
+  --white: #fff;
+  --cream: #FAF8F5;
+  --section-bg: #f5f5f5;
+  --green: #1B7A4E;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: var(--white);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ─── NAVBAR ─── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.logo {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+.logo .dot { color: var(--red); }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a { font-size: 13.5px; color: var(--muted); font-weight: 500; }
+.nav-links a:hover { color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: 14px; }
+.nav-icon { font-size: 17px; color: var(--muted); cursor: pointer; }
+.nav-lang { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.nav-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 700; }
+
+/* ─── BREADCRUMB ─── */
+.breadcrumb {
+  padding: 10px 40px;
+  font-size: 12.5px;
+  color: var(--light-muted);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.breadcrumb a { color: var(--light-muted); }
+.breadcrumb a:hover { color: var(--red); }
+.breadcrumb .sep { color: #ccc; }
+.breadcrumb .current { color: var(--text); font-weight: 500; }
+
+/* ─── HERO PHOTO GRID ─── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 180px 180px;
+  gap: 3px;
+  height: 363px;
+}
+.hero-photo {
+  background: #c8c8c8;
+  overflow: hidden;
+  position: relative;
+}
+.hero-photo:first-child {
+  grid-row: 1 / 3;
+  grid-column: 1;
+}
+.hero-photo .emoji-fill {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  background: linear-gradient(135deg, #b8a89a, #9a8880);
+}
+.hero-photo:nth-child(1) .emoji-fill { background: linear-gradient(135deg, #c4a882, #8B6B4A); }
+.hero-photo:nth-child(2) .emoji-fill { background: linear-gradient(135deg, #8B3A3A, #C45252); }
+.hero-photo:nth-child(3) .emoji-fill { background: linear-gradient(135deg, #3A5A3A, #527A52); }
+.hero-photo:nth-child(4) .emoji-fill { background: linear-gradient(135deg, #3A3A8B, #5252C4); }
+.hero-photo:nth-child(5) .emoji-fill { background: linear-gradient(135deg, #6B4A8B, #9A6AC4); }
+.photo-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: white;
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: none;
+}
+.hero-photo:last-child .photo-btn { display: flex; align-items: center; gap: 5px; }
+
+/* ─── PAGE LAYOUT ─── */
+.page-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 0 60px;
+}
+
+.main-col { padding: 28px 40px 0 0; border-right: 1px solid var(--border); }
+.side-col { padding: 28px 0 0 32px; }
+
+/* ─── PLACE HEADER ─── */
+.place-label { color: var(--red); font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.place-name { font-size: 30px; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.02em; }
+.place-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.place-tag {
+  background: var(--section-bg);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.place-tag.highlight { background: #FFF0EF; border-color: #FFC9C4; color: var(--red); }
+.place-rating-row { display: flex; align-items: center; gap: 6px; margin-bottom: 18px; font-size: 13px; }
+.stars { color: #F5A623; }
+.rating-num { font-weight: 700; }
+.rating-count { color: var(--muted); }
+.divider-dot { color: var(--border); }
+
+/* ─── DESCRIPTION ─── */
+.desc-text {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 28px;
+  max-width: 660px;
+}
+
+/* ─── SECTION DIVIDER ─── */
+.sec-divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+/* ─── SECTION HEADING (matches TTJ style) ─── */
+.sec-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.sec-head-left {}
+.sec-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+.sec-sub { font-size: 13px; color: var(--muted); }
+.sec-view-all {
+  font-size: 13px;
+  color: var(--red);
+  font-weight: 600;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.sec-view-all:hover { opacity: 0.8; }
+
+/* ─── CMS LABEL PILL ─── */
+.cms-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: #FFF3CD;
+  color: #856404;
+  border: 1px solid #FFE08A;
+  margin-bottom: 6px;
+}
+.cms-pill::before { content: '⚙'; }
+
+/* ─── AREA MAP ─── */
+.area-section { margin-bottom: 28px; }
+.area-map {
+  background: #E8F0F5;
+  border-radius: 8px;
+  height: 220px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.map-inner { text-align: center; z-index: 2; }
+.map-inner .m-icon { font-size: 36px; display: block; margin-bottom: 6px; }
+.map-inner p { font-size: 13px; color: #555; font-weight: 500; }
+.map-toggle { display: flex; gap: 0; margin-bottom: 12px; }
+.map-toggle button {
+  border: 1px solid var(--border);
+  background: white;
+  font-size: 12px;
+  padding: 5px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--muted);
+}
+.map-toggle button:first-child { border-radius: 5px 0 0 5px; }
+.map-toggle button:last-child { border-radius: 0 5px 5px 0; border-left: none; }
+.map-toggle button.active { background: var(--navy); color: white; border-color: var(--navy); }
+.map-address { font-size: 13px; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+.map-address .pin { color: var(--red); }
+
+/* ─── TRIP TEMPLATES (horizontal scroll) ─── */
+.templates-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.templates-scroll::-webkit-scrollbar { display: none; }
+
+.template-card {
+  flex-shrink: 0;
+  width: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.template-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.1); transform: translateY(-2px); }
+.tc-img {
+  height: 120px;
+  background: linear-gradient(135deg, #1A2E42, #0D1B2A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  position: relative;
+}
+.tc-img.var2 { background: linear-gradient(135deg, #1A3A1A, #0D2A0D); }
+.tc-img.var3 { background: linear-gradient(135deg, #3A1A1A, #2A0D0D); }
+.tc-img.var4 { background: linear-gradient(135deg, #1A1A3A, #0D0D2A); }
+.tc-body { padding: 10px; background: white; }
+.tc-title { font-size: 12.5px; font-weight: 700; color: var(--navy); line-height: 1.35; margin-bottom: 6px; }
+.tc-author { display: flex; align-items: center; gap: 6px; }
+.tc-avatar { width: 18px; height: 18px; border-radius: 50%; background: var(--red); font-size: 8px; font-weight: 700; color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.tc-author-name { font-size: 11px; color: var(--muted); }
+
+/* ─── REVIEWS ─── */
+.reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.review-card {
+  background: var(--cream);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+.review-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.r-avatar { width: 34px; height: 34px; border-radius: 50%; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.r-name { font-weight: 700; font-size: 13px; }
+.r-date { font-size: 11px; color: var(--muted); }
+.r-stars { font-size: 11px; color: #F5A623; }
+.r-text { font-size: 13px; color: #444; line-height: 1.65; }
+
+/* ─── ASSET CARD GRIDS ─── */
+.asset-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.asset-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+/* Standard place card — matches TTJ style */
+.place-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: white;
+  cursor: pointer;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.place-card:hover { box-shadow: 0 6px 22px rgba(0,0,0,0.09); transform: translateY(-2px); }
+.pc-img {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  position: relative;
+}
+.pc-img.temple  { background: linear-gradient(135deg, #8B3A3A, #6B1A1A); }
+.pc-img.dining  { background: linear-gradient(135deg, #5A3000, #8B5A00); }
+.pc-img.shrine  { background: linear-gradient(135deg, #1A5A1A, #3A8B3A); }
+.pc-img.bar     { background: linear-gradient(135deg, #2A0A1A, #4A1A2A); }
+.pc-img.hotel-bg{ background: linear-gradient(135deg, #1A1A4A, #2A2A6A); }
+.pc-img.park    { background: linear-gradient(135deg, #1A3A1A, #2A5A2A); }
+.pc-img.tour-bg { background: linear-gradient(135deg, #3A1A5A, #5A2A8B); }
+.pc-img.blog-bg { background: linear-gradient(135deg, #1A3A5A, #2A5A8B); }
+
+.pc-type {
+  position: absolute;
+  top: 8px; left: 8px;
+  background: rgba(0,0,0,0.45);
+  color: white;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.pc-rating {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: white;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.pc-rating::before { content: '★'; color: #F5A623; }
+
+.pc-body { padding: 11px 12px 13px; }
+.pc-name { font-weight: 700; font-size: 13.5px; color: var(--navy); margin-bottom: 3px; line-height: 1.3; }
+.pc-jp { font-size: 11px; color: var(--light-muted); margin-bottom: 5px; }
+.pc-desc { font-size: 12px; color: var(--muted); line-height: 1.55; margin-bottom: 9px; }
+.pc-foot { display: flex; align-items: center; justify-content: space-between; }
+.pc-tag { background: var(--section-bg); font-size: 10.5px; padding: 2px 7px; border-radius: 3px; color: var(--muted); font-weight: 500; }
+.pc-link { font-size: 12px; font-weight: 600; color: var(--red); }
+
+/* Hotel row card */
+.hotel-row {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  background: white;
+  cursor: pointer;
+  transition: box-shadow 0.18s;
+}
+.hotel-row:hover { box-shadow: 0 6px 22px rgba(0,0,0,0.09); }
+.hr-img {
+  width: 110px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #1A1A3A, #2A2A5A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+.hr-body { padding: 13px 14px; flex: 1; }
+.hr-name { font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 2px; }
+.hr-stars { color: #F5A623; font-size: 11px; margin-bottom: 5px; }
+.hr-desc { font-size: 12px; color: var(--muted); line-height: 1.55; margin-bottom: 9px; }
+.hr-foot { display: flex; align-items: center; justify-content: space-between; }
+.hr-price { font-weight: 700; font-size: 15px; color: var(--navy); }
+.hr-price span { font-size: 11px; color: var(--muted); font-weight: 400; }
+.hr-score { background: var(--green); color: white; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
+
+/* Tour card */
+.tour-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  cursor: pointer;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.tour-card:hover { box-shadow: 0 6px 22px rgba(0,0,0,0.09); transform: translateY(-2px); }
+.tour-img-wrap {
+  height: 140px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+}
+.tour-img-wrap.t1 { background: linear-gradient(135deg, #3A1A5A, #5A2A8B); }
+.tour-img-wrap.t2 { background: linear-gradient(135deg, #1A3A2A, #2A6B4A); }
+.tour-img-wrap.t3 { background: linear-gradient(135deg, #3A2A1A, #6B4A2A); }
+.tour-price-badge {
+  position: absolute;
+  bottom: 10px; right: 10px;
+  background: var(--red);
+  color: white;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+.tour-body { padding: 12px; }
+.tour-name { font-weight: 700; font-size: 13.5px; color: var(--navy); margin-bottom: 5px; line-height: 1.35; }
+.tour-meta { display: flex; gap: 12px; font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.tour-cta {
+  display: block;
+  width: 100%;
+  background: var(--navy);
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: center;
+  transition: background 0.15s;
+}
+.tour-cta:hover { background: #1a2e42; }
+
+/* Itinerary card */
+.itinerary-card {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--navy);
+  color: white;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.18s;
+}
+.itinerary-card:hover { transform: translateY(-2px); }
+.ic-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  opacity: 0.15;
+}
+.ic-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+}
+.ic-body { position: relative; z-index: 2; padding: 14px; }
+.ic-dur { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.45); margin-bottom: 5px; }
+.ic-name { font-weight: 700; font-size: 14px; line-height: 1.35; margin-bottom: 8px; }
+.ic-auth { display: flex; align-items: center; gap: 7px; }
+.ic-av { width: 20px; height: 20px; border-radius: 50%; background: var(--red); font-size: 8px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.ic-aname { font-size: 11px; color: rgba(255,255,255,0.55); }
+
+/* Blog card */
+.blog-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  cursor: pointer;
+  transition: box-shadow 0.18s;
+}
+.blog-card:hover { box-shadow: 0 6px 22px rgba(0,0,0,0.09); }
+.bc-img { height: 110px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+.bc-img.b1 { background: linear-gradient(135deg, #1A3A5A, #2A5A8B); }
+.bc-img.b2 { background: linear-gradient(135deg, #3A1A1A, #5A2A2A); }
+.bc-body { padding: 12px; }
+.bc-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--red); font-weight: 700; margin-bottom: 5px; }
+.bc-title { font-weight: 700; font-size: 13px; color: var(--navy); line-height: 1.4; margin-bottom: 5px; }
+.bc-date { font-size: 11px; color: var(--light-muted); }
+
+/* Day guide link card */
+.guide-link-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.guide-link-card:last-child { border-bottom: none; }
+.glc-img { width: 72px; height: 60px; border-radius: 7px; background: linear-gradient(135deg, #1A3A5A, #2A5A8B); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.glc-body {}
+.glc-title { font-size: 13.5px; font-weight: 600; color: var(--navy); line-height: 1.4; margin-bottom: 4px; }
+.glc-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* Nearby attractions row */
+.nearby-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.nearby-scroll::-webkit-scrollbar { display: none; }
+.nearby-item {
+  flex-shrink: 0;
+  width: 150px;
+  cursor: pointer;
+}
+.ni-img {
+  height: 100px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+.ni-img.n1 { background: linear-gradient(135deg, #2A3A5A, #3A5A8B); }
+.ni-img.n2 { background: linear-gradient(135deg, #3A2A1A, #6B4A2A); }
+.ni-img.n3 { background: linear-gradient(135deg, #1A3A1A, #2A5A2A); }
+.ni-img.n4 { background: linear-gradient(135deg, #3A1A1A, #8B3A3A); }
+.ni-name { font-size: 12.5px; font-weight: 600; color: var(--navy); line-height: 1.3; }
+
+/* FAQ */
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.faq-q .arrow { font-size: 16px; color: var(--muted); transition: transform 0.2s; }
+.faq-q.open .arrow { transform: rotate(180deg); }
+.faq-a { font-size: 13.5px; color: #444; line-height: 1.7; padding-bottom: 14px; display: none; }
+.faq-a.open { display: block; }
+
+/* ─── SIDEBAR ─── */
+.side-box { margin-bottom: 24px; }
+.side-box-title { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+
+.side-info-row { display: flex; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+.side-info-row .label { color: var(--muted); min-width: 60px; }
+.side-info-row .val { font-weight: 500; color: var(--navy); }
+
+/* Top ways */
+.top-way-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+.top-way-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.tw-img {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+.tw-img.tw1 { background: linear-gradient(135deg, #3A2A1A, #8B5A1A); }
+.tw-img.tw2 { background: linear-gradient(135deg, #1A2A3A, #2A4A6A); }
+.tw-img.tw3 { background: linear-gradient(135deg, #2A1A3A, #5A3A8B); }
+.tw-body { padding: 11px 12px; }
+.tw-stars { color: #F5A623; font-size: 10.5px; margin-bottom: 3px; }
+.tw-title { font-size: 12.5px; font-weight: 600; color: var(--navy); line-height: 1.35; }
+
+/* CMS Add Button */
+.add-btn {
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  padding: 18px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--light-muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  text-align: center;
+  min-height: 100px;
+}
+.add-btn:hover { border-color: var(--red); color: var(--red); }
+.add-btn .plus { font-size: 22px; font-weight: 300; line-height: 1; }
+
+/* ─── ADD SECTION BUTTON ─── */
+.add-section-cta {
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin: 28px 0;
+  background: var(--cream);
+}
+.add-section-cta p { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.asc-buttons { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.asc-btn {
+  border: 1px solid var(--border);
+  background: white;
+  padding: 6px 14px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.asc-btn:hover { border-color: var(--red); color: var(--red); }
+.asc-btn.primary { background: var(--red); color: white; border-color: var(--red); }
+.asc-btn.primary:hover { background: #c41f13; color: white; }
+
+/* ─── SECTION heading editable style (CMS) ─── */
+.cms-sec-wrap {
+  margin-bottom: 32px;
+}
+.cms-sec-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+.cms-sec-head-left { flex: 1; }
+.cms-sec-edit { display: flex; gap: 6px; flex-shrink: 0; margin-top: 4px; }
+.cms-edit-btn {
+  border: 1px solid var(--border);
+  background: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.cms-edit-btn.add { background: var(--red); color: white; border-color: var(--red); }
+
+/* ─── FOOTER ─── */
+.site-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.5);
+  padding: 40px;
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.footer-logo { font-weight: 700; font-size: 16px; color: white; }
+.footer-logo .dot { color: var(--red); }
+
+/* ─── Frequently asked CTA ─── */
+.faq-cta-section {
+  background: linear-gradient(135deg, #F8F0FF, #FFF0F0);
+  border-radius: 12px;
+  padding: 28px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+.faq-cta-icon { font-size: 32px; margin-bottom: 10px; }
+.faq-cta-title { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.faq-cta-sub { font-size: 13px; color: var(--muted); }
+
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">TRIP T<span class="dot">●</span> JAPAN</div>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Itineraries</a>
+    <a href="#">Tours</a>
+    <a href="#">Blog</a>
+    <a href="#">Day Guides</a>
+    <a href="#">Locations</a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-icon">🔍</span>
+    <span class="nav-lang">🌐 EN ($)</span>
+    <div class="nav-avatar">U</div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Home</a><span class="sep">›</span>
+  <a href="#">Places</a><span class="sep">›</span>
+  <a href="#">Tokyo</a><span class="sep">›</span>
+  <span class="current">Akasaka</span>
+</div>
+
+<!-- HERO PHOTO GRID -->
+<div class="hero-grid">
+  <div class="hero-photo"><div class="emoji-fill">👘</div></div>
+  <div class="hero-photo"><div class="emoji-fill">⛩️</div></div>
+  <div class="hero-photo"><div class="emoji-fill">🌸</div></div>
+  <div class="hero-photo"><div class="emoji-fill">🏯</div></div>
+  <div class="hero-photo">
+    <div class="emoji-fill">🎷</div>
+    <button class="photo-btn">📷 See all photos</button>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- MAIN COLUMN                             -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="main-col">
+
+    <!-- Place Header -->
+    <div class="place-label">Tokyo</div>
+    <div class="place-name">Akasaka <span style="font-size:22px; color:#aaa; font-weight:400;">(赤坂)</span></div>
+    <div class="place-tags">
+      <span class="place-tag highlight">Neighborhood</span>
+      <span class="place-tag">Business District</span>
+      <span class="place-tag">Fine Dining</span>
+      <span class="place-tag">Cultural</span>
+      <span class="place-tag">Minato Ward</span>
+    </div>
+    <div class="place-rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rating-num">4.7</span>
+      <span class="rating-count">(1,240 reviews)</span>
+      <span class="divider-dot">·</span>
+      <span style="color:var(--muted);">Tourist Attraction · Neighborhood · Cultural Area</span>
+    </div>
+
+    <!-- Description -->
+    <p class="desc-text">
+      Akasaka is the upscale business and dining district of central Tokyo, sitting between the political corridors of Nagatacho and the nightlife hub of Roppongi in Minato Ward. The name means <em>"red slope"</em> in Japanese, a nod to the hilly streets that run through the area. During the Edo period, this was feudal lord territory — grand residences, high-ranking samurai, and an air of old importance that never really left.
+    </p>
+    <p class="desc-text" style="margin-top:-14px;">
+      Walk through Akasaka on a weekday afternoon and you'll find suits, embassies, and serious business. Come back at 8 pm, and the same streets are full of after-work crowds spilling out of izakayas, with jazz drifting up from basement bars. Weekends bring a quieter, more residential side — a relaxed place to explore shrines and walk the hilly backstreets.
+    </p>
+
+    <!-- ─── The Area ─── -->
+    <div class="area-section">
+      <div class="sec-title" style="margin-bottom:10px;">The area</div>
+      <div class="map-address"><span class="pin">📍</span> 2 chome–5 Akasaka, Minato City, Tokyo 107-0052, Japan</div>
+      <div class="map-toggle">
+        <button class="active">Map</button>
+        <button>Satellite</button>
+      </div>
+      <div class="area-map">
+        <div class="map-inner">
+          <span class="m-icon">🗺</span>
+          <p>Akasaka, Minato Ward — Interactive Map</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CMS SECTION 1: DINING               -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cms-sec-wrap">
+      <div class="cms-sec-head">
+        <div class="cms-sec-head-left">
+          <div class="cms-pill">Restaurants Asset · Tag: Akasaka</div>
+          <div class="sec-title">Best Dining in Akasaka</div>
+          <div class="sec-sub">Kaiseki restaurants and izakayas favored by Tokyo's elite</div>
+        </div>
+        <div class="cms-sec-edit">
+          <button class="cms-edit-btn">✏ Edit</button>
+          <button class="cms-edit-btn add">+ Add</button>
+        </div>
+      </div>
+      <div class="asset-grid-3">
+        <div class="place-card">
+          <div class="pc-img dining">🍱
+            <span class="pc-type">Kaiseki</span>
+            <span class="pc-rating">4.9</span>
+          </div>
+          <div class="pc-body">
+            <div class="pc-name">Kikunoi Akasaka</div>
+            <div class="pc-jp">菊乃井 赤坂</div>
+            <div class="pc-desc">Michelin-starred kaiseki serving seasonal multi-course menus beloved by diplomats.</div>
+            <div class="pc-foot"><span class="pc-tag">¥¥¥¥</span><a class="pc-link">View →</a></div>
+          </div>
+        </div>
+        <div class="place-card">
+          <div class="pc-img dining" style="background:linear-gradient(135deg,#5A2A00,#8B4500);">🥩
+            <span class="pc-type">Yakiniku</span>
+            <span class="pc-rating">4.7</span>
+          </div>
+          <div class="pc-body">
+            <div class="pc-name">Akasaka Yakiniku Jumbo</div>
+            <div class="pc-jp">焼肉ジャンボ 赤坂</div>
+            <div class="pc-desc">Premium wagyu grills beloved by the after-work political crowd in Tokyo.</div>
+            <div class="pc-foot"><span class="pc-tag">¥¥¥</span><a class="pc-link">View →</a></div>
+          </div>
+        </div>
+        <div class="add-btn">
+          <span class="plus">+</span>
+          <span>Add restaurant from assets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CMS SECTION 2: HOTELS               -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cms-sec-wrap">
+      <div class="cms-sec-head">
+        <div class="cms-sec-head-left">
+          <div class="cms-pill">Hotels Asset · Tag: Akasaka</div>
+          <div class="sec-title">Hotels in Akasaka</div>
+          <div class="sec-sub">From luxury flagships to smart business hotels</div>
+        </div>
+        <div class="cms-sec-edit">
+          <button class="cms-edit-btn">✏ Edit</button>
+          <button class="cms-edit-btn add">+ Add</button>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="hotel-row">
+          <div class="hr-img">🏨</div>
+          <div class="hr-body">
+            <div class="hr-name">ANA InterContinental Tokyo</div>
+            <div class="hr-stars">★★★★★</div>
+            <div class="hr-desc">Towering luxury in the heart of Akasaka. Steps from Akasaka-mitsuke Station, preferred by diplomats and executives.</div>
+            <div class="hr-foot">
+              <div class="hr-price">From $280 <span>/ night</span></div>
+              <span class="hr-score">9.1</span>
+            </div>
+          </div>
+        </div>
+        <div class="hotel-row">
+          <div class="hr-img">🏩</div>
+          <div class="hr-body">
+            <div class="hr-name">Hotel New Otani Tokyo</div>
+            <div class="hr-stars">★★★★★</div>
+            <div class="hr-desc">Iconic property with a 400-year-old Japanese garden. Multiple restaurants and direct access to Akasaka.</div>
+            <div class="hr-foot">
+              <div class="hr-price">From $220 <span>/ night</span></div>
+              <span class="hr-score">8.8</span>
+            </div>
+          </div>
+        </div>
+        <div class="add-btn" style="min-height:60px; flex-direction:row; gap:10px;">
+          <span class="plus">+</span>
+          <span>Add hotel from assets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CMS SECTION 3: ATTRACTIONS          -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cms-sec-wrap">
+      <div class="cms-sec-head">
+        <div class="cms-sec-head-left">
+          <div class="cms-pill">Attractions Asset · Tag: Akasaka</div>
+          <div class="sec-title">Top Attractions in Akasaka</div>
+          <div class="sec-sub">Shrines, parks, and cultural landmarks within walking distance</div>
+        </div>
+        <div class="cms-sec-edit">
+          <button class="cms-edit-btn">✏ Edit</button>
+          <button class="cms-edit-btn add">+ Add</button>
+        </div>
+      </div>
+      <div class="asset-grid-3">
+        <div class="place-card">
+          <div class="pc-img shrine">⛩️
+            <span class="pc-type">Shrine</span>
+            <span class="pc-rating">4.8</span>
+          </div>
+          <div class="pc-body">
+            <div class="pc-name">Hikawa Shrine</div>
+            <div class="pc-jp">氷川神社</div>
+            <div class="pc-desc">Quiet Edo-period shrine with cherry blossoms in spring. Far less crowded than famous spots.</div>
+            <div class="pc-foot"><span class="pc-tag">Free</span><a class="pc-link">View →</a></div>
+          </div>
+        </div>
+        <div class="place-card">
+          <div class="pc-img park">🌸
+            <span class="pc-type">Park</span>
+            <span class="pc-rating">4.6</span>
+          </div>
+          <div class="pc-body">
+            <div class="pc-name">Hinokicho Park</div>
+            <div class="pc-jp">檜町公園</div>
+            <div class="pc-desc">Relaxed park beside Akasaka Sacas. Cherry blossoms with far fewer crowds than Ueno.</div>
+            <div class="pc-foot"><span class="pc-tag">Free</span><a class="pc-link">View →</a></div>
+          </div>
+        </div>
+        <div class="place-card">
+          <div class="pc-img" style="background:linear-gradient(135deg,#2A1A40,#3D2860);">🏛
+            <span class="pc-type">Palace</span>
+            <span class="pc-rating">4.9</span>
+          </div>
+          <div class="pc-body">
+            <div class="pc-name">Akasaka Palace</div>
+            <div class="pc-jp">迎賓館赤坂離宮</div>
+            <div class="pc-desc">Japan's state guesthouse — a Baroque palace open to visitors on select days.</div>
+            <div class="pc-foot"><span class="pc-tag">¥1,500</span><a class="pc-link">View →</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- TRIP TEMPLATES (existing TTJ style) -->
+    <!-- ════════════════════════════════════ -->
+    <div class="sec-head" style="margin-bottom:16px;">
+      <div class="sec-head-left">
+        <div class="sec-title">Trip templates featuring Akasaka</div>
+      </div>
+      <a class="sec-view-all" href="#">View all ›</a>
+    </div>
+    <div class="templates-scroll">
+      <div class="template-card">
+        <div class="tc-img">🗾</div>
+        <div class="tc-body">
+          <div class="tc-title">7 days: Tokyo and Kyoto</div>
+          <div class="tc-author"><div class="tc-avatar">TJ</div><span class="tc-author-name">Trip To Japan</span></div>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="tc-img var2">🌸</div>
+        <div class="tc-body">
+          <div class="tc-title">15 days in Tokyo, Kanazawa, Hiroshima</div>
+          <div class="tc-author"><div class="tc-avatar">TJ</div><span class="tc-author-name">Trip To Japan</span></div>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="tc-img var3">🏯</div>
+        <div class="tc-body">
+          <div class="tc-title">The perfect 2 weeks in Japan</div>
+          <div class="tc-author"><div class="tc-avatar" style="background:#666;">A</div><span class="tc-author-name">Alexandra</span></div>
+        </div>
+      </div>
+      <div class="template-card">
+        <div class="tc-img var4">🗼</div>
+        <div class="tc-body">
+          <div class="tc-title">2-week trip: Tokyo, Kyoto, Osaka, Nara</div>
+          <div class="tc-author"><div class="tc-avatar">TJ</div><span class="tc-author-name">Trip To Japan</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CMS SECTION 4: TOURS                -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cms-sec-wrap">
+      <div class="cms-sec-head">
+        <div class="cms-sec-head-left">
+          <div class="cms-pill">Tours Asset · Tag: Akasaka</div>
+          <div class="sec-title">Guided Tours in Akasaka</div>
+          <div class="sec-sub">Book with verified local guides — free cancellation on most tours</div>
+        </div>
+        <div class="cms-sec-edit">
+          <button class="cms-edit-btn">✏ Edit</button>
+          <button class="cms-edit-btn add">+ Add</button>
+        </div>
+      </div>
+      <div class="asset-grid-3">
+        <div class="tour-card">
+          <div class="tour-img-wrap t1">🏯<span class="tour-price-badge">From $49</span></div>
+          <div class="tour-body">
+            <div class="tour-name">Akasaka History & Shrine Walking Tour</div>
+            <div class="tour-meta"><span>⏱ 3 hrs</span><span>👤 Max 8</span></div>
+            <button class="tour-cta">Book Tour</button>
+          </div>
+        </div>
+        <div class="tour-card">
+          <div class="tour-img-wrap t2">🍜<span class="tour-price-badge">From $89</span></div>
+          <div class="tour-body">
+            <div class="tour-name">Akasaka Food Tour: Kaiseki to Izakaya</div>
+            <div class="tour-meta"><span>⏱ 4 hrs</span><span>👤 Max 6</span></div>
+            <button class="tour-cta">Book Tour</button>
+          </div>
+        </div>
+        <div class="add-btn">
+          <span class="plus">+</span>
+          <span>Add tour from assets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CMS SECTION 5: NIGHTLIFE            -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cms-sec-wrap">
+      <div class="cms-sec-head">
+        <div class="cms-sec-head-left">
+          <div class="cms-pill">Attractions Asset · Type: Bar / Nightlife</div>
+          <div class="sec-title">Jazz Bars & Nightlife in Akasaka</div>
+          <div class="sec-sub">Basement jazz spots that have defined the neighborhood for generations</div>
+        </div>
+        <div class="cms-sec-edit">
+          <button class="cms-edit-btn">✏ Edit</button>
+          <button class="cms-edit-btn add">+ Add</button>
+        </div>
+      </div>
+      <div class="asset-grid-3">
+        <div class="place-card">
+          <div class="pc-img bar">🎷
+            <span class="pc-type">Jazz Bar</span>
+            <span class="pc-rating">4.8</span>
+          </div>
+          <div class="pc-body">
+            <div class="pc-name">Bar BenFiddich</div>
+            <div class="pc-jp">バー ベンフィデック</div>
+            <div class="pc-desc">One of Tokyo's most celebrated cocktail bars, housed in a moody basement on a quiet alley.</div>
+            <div class="pc-foot"><span class="pc-tag">¥¥¥</span><a class="pc-link">View →</a></div>
+          </div>
+        </div>
+        <div class="place-card">
+          <div class="pc-img bar" style="background:linear-gradient(135deg,#1A0A2A,#3A1A5A);">🎺
+            <span class="pc-type">Jazz Club</span>
+            <span class="pc-rating">4.6</span>
+          </div>
+          <div class="pc-body">
+            <div class="pc-name">Akasaka Biz Tower Bar</div>
+            <div class="pc-jp">赤坂ジャズバー</div>
+            <div class="pc-desc">Intimate jazz lounge with live performances Thursday through Saturday nights.</div>
+            <div class="pc-foot"><span class="pc-tag">¥¥</span><a class="pc-link">View →</a></div>
+          </div>
+        </div>
+        <div class="add-btn">
+          <span class="plus">+</span>
+          <span>Add bar from assets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- ADD NEW SECTION                     -->
+    <!-- ════════════════════════════════════ -->
+    <div class="add-section-cta">
+      <div style="font-size:13.5px; font-weight:700; color:var(--navy); margin-bottom:6px;">+ Add Custom Section</div>
+      <p>Choose a content type and write a custom heading to add a new section to this page.</p>
+      <div class="asc-buttons">
+        <button class="asc-btn">🍽 Restaurants</button>
+        <button class="asc-btn">🏨 Hotels</button>
+        <button class="asc-btn">🎭 Attractions</button>
+        <button class="asc-btn">🗺 Tours</button>
+        <button class="asc-btn">📖 Blog Posts</button>
+        <button class="asc-btn">🗓 Itineraries</button>
+        <button class="asc-btn primary">+ Custom Block</button>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- WHAT TRAVELLERS SAY (existing)      -->
+    <!-- ════════════════════════════════════ -->
+    <div class="sec-head">
+      <div class="sec-head-left">
+        <div class="sec-title">What other travellers are saying about Akasaka</div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-header">
+          <div class="r-avatar" style="background:#F4A23A;">🧑</div>
+          <div>
+            <div class="r-name">Carlos Ecosistema</div>
+            <div class="r-date">May 4, 2024</div>
+            <div class="r-stars">★★★★★</div>
+          </div>
+        </div>
+        <div class="r-text">I had the best meal of my entire trip at a tiny kaiseki spot on a backstreet. The restaurant was impeccable, the area is elegant yet relaxed, and walking back through the lantern-lit alley afterward was unforgettable.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-header">
+          <div class="r-avatar" style="background:#5A8B5A;">🌸</div>
+          <div>
+            <div class="r-name">Yllah K.</div>
+            <div class="r-date">Apr 12, 2024</div>
+            <div class="r-stars">★★★★★</div>
+          </div>
+        </div>
+        <div class="r-text">Akasaka surprised me — I expected it to feel stuffy but it has so much character. The jazz bars are the real hidden gem. Spent two evenings just hopping between basement spots. The cherry blossoms at Hikawa Shrine were stunning too.</div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- NEARBY ATTRACTIONS (existing)       -->
+    <!-- ════════════════════════════════════ -->
+    <div class="sec-head">
+      <div class="sec-head-left">
+        <div class="sec-title">Nearby attractions to see</div>
+      </div>
+      <a class="sec-view-all" href="#">See all ›</a>
+    </div>
+    <div class="nearby-scroll">
+      <div class="nearby-item">
+        <div class="ni-img n1">🏙</div>
+        <div class="ni-name">Roppongi Hills</div>
+      </div>
+      <div class="nearby-item">
+        <div class="ni-img n2">🏯</div>
+        <div class="ni-name">Tokyo National Museum</div>
+      </div>
+      <div class="nearby-item">
+        <div class="ni-img n3">🌿</div>
+        <div class="ni-name">Shinjuku Gyoen</div>
+      </div>
+      <div class="nearby-item">
+        <div class="ni-img n4">🏮</div>
+        <div class="ni-name">Ginza</div>
+      </div>
+      <div class="nearby-item">
+        <div class="ni-img" style="background:linear-gradient(135deg,#2A3A1A,#3A5A2A);">🗼</div>
+        <div class="ni-name">Tokyo Tower</div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CMS SECTION 6: ITINERARIES          -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cms-sec-wrap">
+      <div class="cms-sec-head">
+        <div class="cms-sec-head-left">
+          <div class="cms-pill">Itineraries Asset · Includes: Akasaka</div>
+          <div class="sec-title">Itineraries That Include Akasaka</div>
+          <div class="sec-sub">Real trip plans from our community</div>
+        </div>
+        <div class="cms-sec-edit">
+          <button class="cms-edit-btn">✏ Edit</button>
+          <button class="cms-edit-btn add">+ Add</button>
+        </div>
+      </div>
+      <div class="asset-grid-3">
+        <div class="itinerary-card">
+          <div class="ic-bg">🗾</div>
+          <div class="ic-overlay"></div>
+          <div class="ic-body">
+            <div class="ic-dur">7 Days</div>
+            <div class="ic-name">7 days: Tokyo and Kyoto</div>
+            <div class="ic-auth"><div class="ic-av">TJ</div><span class="ic-aname">Trip To Japan</span></div>
+          </div>
+        </div>
+        <div class="itinerary-card" style="background:linear-gradient(135deg,#1a2e42,#0d1b2a);">
+          <div class="ic-bg">🏙</div>
+          <div class="ic-overlay"></div>
+          <div class="ic-body">
+            <div class="ic-dur">14 Days</div>
+            <div class="ic-name">Ultimate 14 Day Japan Journey: Tokyo, Kyoto & Osaka</div>
+            <div class="ic-auth"><div class="ic-av">HF</div><span class="ic-aname">Hiroko Furukawa</span></div>
+          </div>
+        </div>
+        <div class="add-btn">
+          <span class="plus">+</span>
+          <span>Add itinerary from assets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- CMS SECTION 7: BLOG                 -->
+    <!-- ════════════════════════════════════ -->
+    <div class="cms-sec-wrap">
+      <div class="cms-sec-head">
+        <div class="cms-sec-head-left">
+          <div class="cms-pill">Blog Asset · Tag: Akasaka</div>
+          <div class="sec-title">More about Akasaka from our blog</div>
+        </div>
+        <div class="cms-sec-edit">
+          <button class="cms-edit-btn">✏ Edit</button>
+          <button class="cms-edit-btn add">+ Add</button>
+        </div>
+      </div>
+      <div class="asset-grid-3">
+        <div class="blog-card">
+          <div class="bc-img b1">📝</div>
+          <div class="bc-body">
+            <div class="bc-cat">Neighborhood Guide</div>
+            <div class="bc-title">The Best Kaiseki Restaurants in Akasaka</div>
+            <div class="bc-date">March 12, 2025</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="bc-img b2">🎷</div>
+          <div class="bc-body">
+            <div class="bc-cat">Nightlife</div>
+            <div class="bc-title">Akasaka After Dark: Jazz Bars and Hidden Cocktail Dens</div>
+            <div class="bc-date">Jan 5, 2025</div>
+          </div>
+        </div>
+        <div class="add-btn">
+          <span class="plus">+</span>
+          <span>Add blog post from assets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- DAY GUIDES (existing)               -->
+    <!-- ════════════════════════════════════ -->
+    <div class="sec-head">
+      <div class="sec-head-left">
+        <div class="sec-title">Day guides that include Akasaka</div>
+      </div>
+    </div>
+    <div>
+      <div class="guide-link-card">
+        <div class="glc-img">🏯</div>
+        <div class="glc-body">
+          <div class="glc-title">How to Spend a Day in Akasaka</div>
+          <div class="glc-desc">Akasaka, in Tokyo's historic district, is home to the iconic Akasaka Palace, vibrant streets, and traditional culture. This guide shows you how to make the most of your day.</div>
+        </div>
+      </div>
+      <div class="guide-link-card">
+        <div class="glc-img" style="background:linear-gradient(135deg,#3A2A1A,#6B4A2A);">✈️</div>
+        <div class="glc-body">
+          <div class="glc-title">A Perfect Day in Tokyo (from Haneda or Narita Airport)</div>
+          <div class="glc-desc">Planning a Tokyo day trip? Whether you're landing at Haneda or Narita, this guide helps you squeeze the best from every hour.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- FAQ (existing)                       -->
+    <!-- ════════════════════════════════════ -->
+    <div class="faq-cta-section">
+      <div class="faq-cta-icon">💬</div>
+      <div class="faq-cta-title">Frequently Asked Questions</div>
+      <div class="faq-cta-sub">Everything you need to know about visiting Akasaka</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Why is Akasaka famous? <span class="arrow">⌄</span></div>
+      <div class="faq-a">Akasaka is famous for its concentration of serious Japanese restaurants — particularly kaiseki multi-course dining and traditional ryotei restaurants that have been serving politicians and foreign dignitaries for decades. It is also well known for its jazz bar scene and proximity to Akasaka Palace.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How is Akasaka different from Roppongi? <span class="arrow">⌄</span></div>
+      <div class="faq-a">Akasaka is calmer, more business-oriented by day, and leans toward dining and jazz bars at night. Roppongi is louder, more tourist-heavy, and built around nightclubs and large art venues. The two border each other, so combining them in one evening is easy.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">When is the best time to visit Akasaka? <span class="arrow">⌄</span></div>
+      <div class="faq-a">Weekday evenings are the best time for food and atmosphere. Late March to early April is ideal for cherry blossoms around Hinokicho Park and Hikawa Shrine — far less crowded than Ueno or Shinjuku Gyoen. Weekends suit those who prefer a quieter, more relaxed pace.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is English spoken in Akasaka? <span class="arrow">⌄</span></div>
+      <div class="faq-a">Yes, more than most Tokyo neighborhoods. Many restaurants near the main stations carry English menus, and hotel staff are generally comfortable with English due to the strong international presence from embassies and multinational businesses.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Where should you stay in Akasaka? <span class="arrow">⌄</span></div>
+      <div class="faq-a">The New Otani and ANA InterContinental Tokyo are the area's best-known properties. Mid-range and business hotels cluster around Akasaka-mitsuke Station for more affordable options.</div>
+    </div>
+
+  </div><!-- end main-col -->
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SIDEBAR                                 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="side-col">
+
+    <!-- Contact / Info -->
+    <div class="side-box">
+      <div class="side-info-row"><span class="label">Phone</span><span class="val">+81 3-3641-3181</span></div>
+      <div class="side-info-row"><span class="label">Website</span><span class="val" style="color:var(--red);">www.akasaka.jp</span></div>
+    </div>
+
+    <div style="height:1px; background:var(--border); margin-bottom:24px;"></div>
+
+    <!-- Top ways to experience -->
+    <div class="side-box">
+      <div class="side-box-title">Top ways to experience Akasaka</div>
+
+      <div class="top-way-card">
+        <div class="tw-img tw1">🍱</div>
+        <div class="tw-body">
+          <div class="tw-stars">★★★★★ 4.8 (164 reviews)</div>
+          <div class="tw-title">Kaiseki Dinner & Sake Pairing with Matcha Making</div>
+        </div>
+      </div>
+
+      <div class="top-way-card">
+        <div class="tw-img tw2">🏯</div>
+        <div class="tw-body">
+          <div class="tw-stars">★★★★★ 4.7 (98 reviews)</div>
+          <div class="tw-title">Akasaka East Side Tour: Palace, Shrines & Jazz Bars</div>
+        </div>
+      </div>
+
+      <div class="top-way-card">
+        <div class="tw-img tw3">🎷</div>
+        <div class="tw-body">
+          <div class="tw-stars">★★★★☆ 4.5 (57 reviews)</div>
+          <div class="tw-title">Private Tokyo Half-Day Tour — Akasaka & Roppongi by Night</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:1px; background:var(--border); margin-bottom:24px;"></div>
+
+    <!-- Getting there -->
+    <div class="side-box">
+      <div class="side-box-title">Getting to Akasaka</div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; gap:10px; align-items:flex-start; font-size:13px;">
+          <span style="font-size:18px; margin-top:1px;">🚇</span>
+          <div>
+            <div style="font-weight:600; color:var(--navy);">Akasaka-mitsuke Station</div>
+            <div style="color:var(--muted); font-size:12px; margin-top:2px;">
+              <span style="background:#F39700; color:white; font-size:9px; font-weight:700; padding:1px 5px; border-radius:2px; margin-right:4px;">Ginza</span>
+              <span style="background:#EB6EA5; color:white; font-size:9px; font-weight:700; padding:1px 5px; border-radius:2px;">Marunouchi</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:flex-start; font-size:13px;">
+          <span style="font-size:18px; margin-top:1px;">🚇</span>
+          <div>
+            <div style="font-weight:600; color:var(--navy);">Akasaka Station</div>
+            <div style="color:var(--muted); font-size:12px; margin-top:2px;">
+              <span style="background:#00BB85; color:white; font-size:9px; font-weight:700; padding:1px 5px; border-radius:2px;">Chiyoda Line</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:flex-start; font-size:13px;">
+          <span style="font-size:18px; margin-top:1px;">🚇</span>
+          <div>
+            <div style="font-weight:600; color:var(--navy);">Tameike-Sanno Station</div>
+            <div style="color:var(--muted); font-size:12px; margin-top:2px;">
+              <span style="background:#F39700; color:white; font-size:9px; font-weight:700; padding:1px 5px; border-radius:2px; margin-right:4px;">Ginza</span>
+              <span style="background:#00AFCC; color:white; font-size:9px; font-weight:700; padding:1px 5px; border-radius:2px;">Namboku</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--cream); border-radius:7px; padding:10px 12px; margin-top:12px; font-size:12px; color:var(--muted); line-height:1.6;">
+        Use a <strong style="color:var(--navy);">Suica or Pasmo</strong> IC card for all lines and buses — no separate tickets needed.
+      </div>
+    </div>
+
+    <div style="height:1px; background:var(--border); margin-bottom:24px;"></div>
+
+    <!-- Nearby Neighborhoods -->
+    <div class="side-box">
+      <div class="side-box-title">Nearby neighborhoods</div>
+      <div style="display:flex; flex-wrap:wrap; gap:6px;">
+        <span style="background:#F5F5F5; border:1px solid var(--border); padding:5px 12px; border-radius:20px; font-size:12px; font-weight:500; color:var(--navy);">Roppongi</span>
+        <span style="background:#F5F5F5; border:1px solid var(--border); padding:5px 12px; border-radius:20px; font-size:12px; font-weight:500; color:var(--muted);">Nagatacho</span>
+        <span style="background:#F5F5F5; border:1px solid var(--border); padding:5px 12px; border-radius:20px; font-size:12px; font-weight:500; color:var(--muted);">Shibuya</span>
+        <span style="background:#F5F5F5; border:1px solid var(--border); padding:5px 12px; border-radius:20px; font-size:12px; font-weight:500; color:var(--muted);">Ginza</span>
+        <span style="background:#F5F5F5; border:1px solid var(--border); padding:5px 12px; border-radius:20px; font-size:12px; font-weight:500; color:var(--muted);">Minato</span>
+      </div>
+    </div>
+
+  </div><!-- end side-col -->
+
+</div><!-- end page-body -->
+
+<!-- FOOTER -->
+<div class="site-footer">
+  <div class="footer-logo">TRIP T<span class="dot">●</span> JAPAN</div>
+  <div>© TripToJapan Travel · All rights reserved</div>
+  <div style="display:flex; gap:16px; font-size:12px;">
+    <a href="#" style="color:rgba(255,255,255,0.4);">About</a>
+    <a href="#" style="color:rgba(255,255,255,0.4);">Contact</a>
+    <a href="#" style="color:rgba(255,255,255,0.4);">Privacy</a>
+  </div>
+</div>
+
+<script>
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+  if (!isOpen) {
+    answer.classList.add('open');
+    el.classList.add('open');
+  }
+}
+</script>
+
+</body>
+</html>
